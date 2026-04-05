@@ -10,7 +10,9 @@ let ExpressError=require("../utils/ExpressError.js")
 let {listingSchema, reviewSchema}=require("../schema.js")
 let Review=require("../models/review.js");
 
-let {isLoggedIn,isReviewAuthor}=require("/Major project/middleware.js")
+// let {isLoggedIn,isReviewAuthor}=require("/Major project/middleware.js")
+
+const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware.js");
 
 let listingControl=require("../controllers/review.js")
 
