@@ -1,0 +1,72 @@
+<style>
+  .search-btn {
+    border: 1px solid rgb(6, 3, 3);
+    background-color: rgb(243, 48, 48);
+    color: black;
+    border-radius:25px;
+    padding:0.5rem 2rem 0.5rem 2rem;
+    margin:0.75rem;
+  }
+
+  .search-btn:hover{
+    background-color: rgb(187, 12, 12);
+    color: white;
+  }
+
+  .serach-box{
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    border:1px solid black;
+    display:flex;
+    margin-left: 30rem;
+
+  }
+  .serach-box1{
+    border:none;
+   
+    width:16rem;
+    border-radius:25px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+        <a class="nav-link" href="/listings">Explore </a>
+       
+        
+      </div>
+
+      <div class="serach-box">
+           <form class="d-flex" role="search">
+      <input class="form-control me-2 serach-box1" type="search" placeholder="Find Your Next Adventure" aria-label="Search"/>
+      <button class="search-btn btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+    </form>
+      </div>
+      <!-- cretaing for the signup,login and logout section -->
+
+      <div class="navbar-nav ms-auto">
+         <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        <% if(!currentUser) {%>
+        <a class="nav-link active" aria-current="page" href="/signup"><b>signUp</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
+
+        <% } %>
+
+        <% if(currentUser){ %>
+          
+        <a class="nav-link" href="/logout"><b>logout</b></a>
+        <% } %>
+        
+        
+      </div>
+    </div>
+  </div>
+</nav>

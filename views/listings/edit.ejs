@@ -1,0 +1,67 @@
+<% layout("/layout/boilerplate") %>
+<body>
+   <div class="row mt-3">
+    <div class="col-8 offset-2">
+  <h1>Edit Listing  Details</h1>
+
+ 
+
+  <form action="/listings/<%= editUser._id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+   <div>
+    <label for="title" class="form-label">Title:</label>
+    <input type="text" id="title" name="listing[title]" value="<%= editUser.title %>" class="form-control" required>
+    <div class="valid-feedback">Title is good</div>
+      <div class="invalid-feedback">Title is not proper try again </div>
+   </div>
+
+<br><br>
+
+<div>
+
+       Original Image: <br/>
+       <img src="<%= OriginalImageURL %>" >
+       <br/>
+
+       <label for="Image" class="form-label">Upload New Image</label>
+       <input type="file" name="listing[image]" class="form-control">
+       
+       <div class="invalid-feedback">Please upload a valid image file</div>
+   </div>
+
+   <!-- this is previous image code that we have written alreday working but in the bnew one we make more annchaement  -->
+   <!-- <div>
+  <label for="Image" class="form-label">Upload New Image</label>
+  <input type="file"  name="listing[image]" placeholder="Enter the URL of image" class="form-control" value="<%=editUser.image.url%>">
+  <div class="invalid-feedback">Add the proper URL of Image </div>
+  </div> -->
+    <br><br>
+   <div>
+    <label for="description" class="form-label">Description:</label>
+    <textarea id="description" name="listing[description]" class="form-control" required><%= editUser.description %></textarea><br><br>
+       <div class="invalid-feedback">Give a proper Description about the place </div>
+   </div>
+
+   <div>
+    <label for="price" class="form-label">Price:</label>
+    <input type="number" id="price" name="listing[price]" value="<%= editUser.price %>" class="form-control"   required><br><br>
+    <div class="invalid-feedback">Enter the Proper Price </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <label for="location" class="form-label">Location:</label>
+    <input type="text" id="location" name="listing[location]" value="<%= editUser.location %>" class="form-control" required><br><br>
+     <div class="invalid-feedback">Enter the Proper Location Name  </div>
+</div>
+   <div class="col-md-6">
+    <label for="country" class="form-label">Country:</label>
+    <input type="text" id="country" name="listing[country]" value="<%= editUser.country %>" class="form-control" required><br><br>
+    <div class="invalid-feedback">Enter the Proper Country Name  </div>
+</div>
+</div>
+   
+    <button type="submit" class="btn btn-dark">Update Listing</button>
+</form>
+</div>
+
+</div>
+</body>

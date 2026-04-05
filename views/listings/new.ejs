@@ -1,0 +1,77 @@
+<% layout("/layout/boilerplate") %>
+<body>
+
+<div class="row">
+  <div class="col-8 offset-2">
+  <h2>Add New Data </h2>
+
+<form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+
+  <div>
+    <label for="title" class="form-label" required>Title</label>
+      <input type="text"  name="listing[title]" placeholder="Enter the title" class="form-control" required>
+
+      <div class="valid-feedback">Title is good</div>
+      <div class="invalid-feedback">Title is not proper try again </div>
+   
+
+  </div>
+
+  <br><br>
+<div>
+    <label for="description" class="form-label" required>Description</label>
+      <textarea name="listing[description]" class="form-control" required></textarea>
+      <div class="invalid-feedback">Give a proper Description about the place </div>
+     
+</div>
+
+  <br><br>
+
+  <!-- <div>
+  <label for="Image" class="form-label">Image</label>
+  <input type="text"  name="listing[image][url]" placeholder="Enter the URL of image" class="form-control" >
+  <div class="invalid-feedback">Add the proper URL of Image </div>
+  </div> -->
+ 
+  <!-- <br><br> -->
+<!-- this is for the image url if you want to add image from your local machine then you can use the below code and also change the enctype in form tag to multipart/form-data -->
+   <div>
+  <label for="Image" class="form-label">Image</label>
+  <input type="file"  name="listing[image]" placeholder="Enter the URL of image" class="form-control" >
+  <div class="invalid-feedback">Choose a valid image file </div>
+  </div>
+ 
+  <br><br>
+
+  <div>
+  <label for="price" class="form-label" required>Price</label>
+   <input type="number" name="listing[price]" placeholder="Enter the price" class="form-control" required>
+<div class="invalid-feedback">Enter the Proper Price </div>
+  </div>
+ 
+  <br><br>
+
+  <div class="row">
+ <div class="col-md-4">
+  <label for="location" class="form-label">Location</label>
+    <input type="text" name="listing[location]" placeholder="Enter the location" class="form-control" required>
+    <div class="invalid-feedback">Enter the Proper Location Name  </div>
+   
+  </div>
+
+  <br><br>
+
+  <div class="col-md-8">
+  <label for="country" class="form-label">Country</label>
+    <input type="text" name="listing[country]" placeholder="Enter the country" class="form-control" required>
+   <div class="invalid-feedback">Enter the Proper Country Name  </div>
+  </div>
+  </div>
+ 
+  <br>
+
+  <button class="btn btn-dark">Add Listing</button>
+</form>
+</div>
+</div>
+</body>

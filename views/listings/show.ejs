@@ -1,0 +1,185 @@
+<% layout("/layout/boilerplate") %>
+
+<script>
+  const mapToken = "<%= mapToken %>"; // Pass the Mapbox token to the client-side script\\
+ // VS Code will stop complaining with this version:
+const coordinates = JSON.parse('<%- JSON.stringify(alldetails.geometry ? alldetails.geometry.coordinates : [74.5, 40]) %>');
+  // This uses a fallback: if geometry doesn't exist, it defaults to [0, 0]
+</script>
+
+
+<body>
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h1>Show the details</h1>
+    </div>
+  </div>
+
+  <!-- Listing Card -->
+  <div class="listing-card col-6 offset-3 show-card mt-3 mb-3">
+    <img 
+      src="<%= alldetails.image.url %>" 
+      class="card-img-top card-images" 
+      alt="Listing-image"
+    >
+
+    <div class="card-body">
+      <h5 class="card-title"><%= alldetails.title %></h5>
+
+      <p class="card-text">
+        <b>Owner: <%= alldetails.Owner.username %></b>
+      </p>
+
+      <p class="card-text">
+        <%= alldetails.description %><br>
+        &#8377; <%= alldetails.price.toLocaleString("en-IN") %><br>
+        <%= alldetails.location %><br>
+        <%= alldetails.country %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Edit & Delete Buttons -->
+  <div class="btns offset-3">
+    <form action="/listings/<%= alldetails._id %>/edit" method="get">
+      <button class="btn btn-dark offset-2">Edit</button>
+    </form>
+
+    <form action="/listings/<%= alldetails._id %>?_method=DELETE" method="post">
+      <button class="btn btn-dark offset-2">Delete</button>
+    </form>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="offset-3 col-8 mt-3">
+    <hr>
+       <% if (currentUser && currentUser._id.equals(alldetails.Owner._id)) { %>
+    <h4>Leave a Review</h4>
+
+ 
+      <form 
+        action="/listings/<%= alldetails._id %>/review" 
+        method="post" 
+        novalidate 
+        class="needs-validation"
+      >
+ <!-- this is the bar rating code which we have uses earlier in the project  -->
+        <!-- <div class="mb-3 mt-3">
+          <label for="rating" class="form-label">Rating</label>
+          <input 
+            type="range"
+            min="1"
+            max="5"
+            id="rating"
+            class="form-range"
+            name="Review[rating]"
+          >
+        </div> -->
+ <div class="mb-3 mt-3">
+        <fieldset class="starability-slots">
+          <label for="rating" class="form-label">Rating</label>
+ <br>
+  <!-- <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]" value="" checked aria-label="No rating." /> -->
+  <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+</div>
+
+
+        <div class="mb-3 mt-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea 
+            name="Review[comment]"
+            id="comment"
+            cols="30"
+            rows="5"
+            class="form-control"
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please leave a comment</div>
+        </div>
+
+        <button class="btn btn-outline-dark">Submit Review</button>
+      </form>
+    <% } %>
+
+    <br>
+
+
+
+    
+    <hr>
+    
+
+
+    <p><b>All Reviews</b></p>
+    
+  
+      <div class="row">
+        <% for (let review of alldetails.Review) { %>
+          <div class="card col-5 ms-3 mb-3">
+            <div class="card-body">
+              <h4 class="card-title">@<%= review.author.username %></h4>
+              <p class="card-text"><%= review.comment %></p>
+             
+
+               
+  <p class="starability-result card-text" data-rating=" <%= review.rating %>">
+    
+  </p>
+            </div>
+
+            <form 
+              action="/listings/<%= alldetails._id %>/review/<%= review._id %>?_method=DELETE" 
+              method="post" 
+              class="mb-3"
+            >
+              <button class="btn btn-dark btn-sm">Delete</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+  </div>
+      <br>
+    <div class="offset-3 col-4 mt-2">
+
+      <h3>Location on Map</h3>
+      <div id="map"></div>
+
+  </div>
+  </div>
+  <br><br>
+</body>
+
+<script src="/js/map.js"></script>
+
+<!-- <script>
+  // Use the variable name 'mapToken' which we passed in the controller above
+  let maptoken = "; 
+  "
+  if (!maptoken) {
+    console.error("Mapbox token is missing!");
+  }
+
+  mapboxgl.accessToken = maptoken;
+
+  const map = new mapboxgl.Map({
+    container: 'map', 
+    style: 'mapbox://styles/mapbox/streets-v12', 
+    center: [-74.5, 40], // Default center
+    zoom: 9 
+  });
+
+  // Optional: Add a marker so you can see if the map is working
+  new mapboxgl.Marker({ color: "red" })
+    .setLngLat([-74.5, 40])
+    .addTo(map);
+</script> -->
