@@ -33,15 +33,15 @@ const LocalStrategy=require("passport-local").Strategy;
 const User=require("./models/user.js");
 const dbURL=process.env.ATLAS_URL
 const store=MongoStore.create({
-  mongoURL:dbURL,
+  mongoUrl:dbURL,
   crypto:{
     secret:process.env.SECRET,
   },
   touchAfter:24*60*60,
-  },
+  }
 )
 
-store.on("error",()=>{
+store.on("error",(err)=>{
   console.log("Error in session store",err);
 })
 
