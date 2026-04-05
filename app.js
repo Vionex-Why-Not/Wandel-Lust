@@ -5,7 +5,8 @@ if(process.env.NODE_ENV!="production"){
 
 let express=require("express");
 let app=express();
-let port=3000;
+// let port=3000;
+let port=process.env.PORT || 3000;
 let path=require("path");
 const mongoose=require("mongoose");
 let listing=require("./models/listing.js");
@@ -30,7 +31,7 @@ const flash=require("connect-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local").Strategy;
 const User=require("./models/user.js");
-
+const dbURL=process.env.ATLAS_URL
 const store=MongoStore.create({
   mongoURL:dbURL,
   crypto:{
@@ -81,7 +82,7 @@ app.use((req,res,next)=>{
 
 // this is the Atlas URL for the database connection
 
-const dbURL=process.env.ATLAS_URL
+
 
 main()
 .then(()=>{
