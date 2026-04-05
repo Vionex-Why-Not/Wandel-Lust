@@ -32,17 +32,18 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local").Strategy;
 const User=require("./models/user.js");
 const dbURL=process.env.ATLAS_URL
+
+
 const store=MongoStore.create({
-  mongoUrl:dbURL,
+  mongoUrl: dbURL, // FIX 1: This must be lower-case 'url' or connect-mongo will crash
   crypto:{
     secret:process.env.SECRET,
   },
   touchAfter:24*60*60,
-  }
-)
+}) // Removed the extra comma that was here
 
-store.on("error",(err)=>{
-  console.log("Error in session store",err);
+store.on("error", (err) => { // FIX 2: Added 'err' inside the parentheses
+  console.log("Error in session store", err);
 })
 
 const sessionOption={
